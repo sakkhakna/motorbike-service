@@ -16,7 +16,7 @@ export default async function page() {
   const allProducts = await getAllProducts();
   console.log("Fetched Products:", allProducts);
 
-  const products = Array.isArray(allProducts.data) ? allProducts.data : [];
+  const products = Array.isArray(allProducts) ? allProducts.data : [];
 
   return (
     <>

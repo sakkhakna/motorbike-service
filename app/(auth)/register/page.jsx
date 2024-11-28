@@ -11,10 +11,11 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import {register} from "@/app/(auth)/actions";
 
 export default function Page() {
   return (
-    <form onSubmit={submitForm}>
+    <form action={register}>
       <Card className="max-w-sm mx-auto">
         <CardHeader>
           <CardTitle className="text-2xl">Login</CardTitle>
@@ -26,28 +27,25 @@ export default function Page() {
           <div className="grid gap-4">
             <div className="grid gap-2">
               <Label htmlFor="name">Name</Label>
-              <Input id="name" type="text" required />
+              <Input id="name" type="text" name="name" required />
             </div>
             <div className="grid gap-2">
               <Label htmlFor="email">Email</Label>
-              <Input id="email" type="email" required />
+              <Input id="email" type="email" name="email" required />
             </div>
             <div className="grid gap-2">
               <Label htmlFor="password">Password</Label>
-              <Input id="password" type="password" required />
+              <Input id="password" type="password" name="password" required />
             </div>
             <div className="grid gap-2">
               <Label htmlFor="passwordConfirmation">
                 Password Confirmation
               </Label>
-              <Input id="passwordConfirmation" type="password" required />
+              <Input id="passwordConfirmation" type="password" name="password_confirmation" required />
             </div>
             <Button type="submit" className="w-full">
               Create an account
             </Button>
-            {/*    Button variant="outline" className="w-full">*/}
-            {/*    Login with Google*/}
-            {/*</Button><*/}
           </div>
           <div className="mt-4 text-sm text-center">
             Already have an account?{" "}

@@ -30,7 +30,7 @@ export default function Page() {
               <Input
                 id="email"
                 type="email"
-                placeholder="m@example.com"
+                placeholder="email@example.com"
                 name="email"
                 required
               />
@@ -49,9 +49,6 @@ export default function Page() {
             </div>
             <Button type="submit" className="w-full">
               Login
-            </Button>
-            <Button variant="outline" className="w-full">
-              Login with Google
             </Button>
           </div>
           <div className="mt-4 text-sm text-center">
