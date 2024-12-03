@@ -8,7 +8,6 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
-import {deleteDialog} from "@/components/ui/delete-dialog"
 
 const customers = [
     {
@@ -54,7 +53,7 @@ export default function Page() {
                             <TableCell>{customer.motorbikeYear}</TableCell>
                             <TableCell>{customer.motorbikePlate}</TableCell>
                             <TableCell className="text-right">{customer.motorbikeVIN}</TableCell>
-                            <deleteDialog/>
+
                         </TableRow>
                     ))}
                 </TableBody>
