@@ -8,62 +8,78 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
+import {getCustomers} from "@/app/(app)/customers/actions";
+import CustomerEditDialog from "@/components/CustomerEditDialog";
+import CustomerDeleteDialog from "@/components/CustomerDeleteDialog";
+import {Card, CardContent} from "@/components/ui/card";
 
-const customers = [
-    {
-        id: 1,
-        name: "John Doe",
-        phoneNumber: "0123456789",
-        motorbikeMake: "Vespa",
-        motorbikeModel: "Sprint 150",
-        motorbikeYear: "2020",
-        motorbikeColor: "White",
-        motorbikePlate: "PP 2AB-1234",
-        motorbikeVIN: "1234567890",
-    }
-    ]
+export default async function Page() {
 
-export default function Page() {
+    const customers = await getCustomers();
+
     return <>
         <h1 className="text-xl font-bold">Customers</h1>
         <div className="w-full">
-            <Table>
-                <TableCaption>A list of your recent invoices.</TableCaption>
-                <TableHeader>
-                    <TableRow>
-                        <TableHead className="w-[100px]">Name</TableHead>
-                        <TableHead>Phone Number</TableHead>
-                        <TableHead>Motorbike Make</TableHead>
-                        <TableHead>Motorbike Model</TableHead>
-                        <TableHead>Motorbike Color</TableHead>
-                        <TableHead>Motorbike Year</TableHead>
-                        <TableHead>Motorbike Plate</TableHead>
-                        <TableHead>Motorbike VIN</TableHead>
-                        <TableHead className="text-right">Action</TableHead>
-                    </TableRow>
-                </TableHeader>
-                <TableBody>
-                    {customers.map((customer) => (
-                        <TableRow key={customer.id}>
-                            <TableCell className="font-medium">{customer.name}</TableCell>
-                            <TableCell>{customer.phoneNumber}</TableCell>
-                            <TableCell>{customer.motorbikeMake}</TableCell>
-                            <TableCell>{customer.motorbikeModel}</TableCell>
-                            <TableCell>{customer.motorbikeColor}</TableCell>
-                            <TableCell>{customer.motorbikeYear}</TableCell>
-                            <TableCell>{customer.motorbikePlate}</TableCell>
-                            <TableCell className="text-right">{customer.motorbikeVIN}</TableCell>
+            <Card>
+                <CardContent>
+                    <Table>
+                        <TableCaption>A list of your recent invoices.</TableCaption>
+                        <TableHeader>
+                            <TableRow>
+                                <TableHead className="w-[100px]">Name</TableHead>
+                                <TableHead>Phone Number</TableHead>
+                                <TableHead>Motorbike Make</TableHead>
+                                <TableHead>Motorbike Model</TableHead>
+                                <TableHead>Motorbike Color</TableHead>
+                                <TableHead>Motorbike Year</TableHead>
+                                <TableHead>Motorbike Plate</TableHead>
+                                <TableHead>Motorbike VIN</TableHead>
+                                <TableHead className="text-right">Action</TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            {customers && customers.length > 0 ? (
+                                customers.map((customer) => (
+                                    <>
+                                        {customer.motorbikes.map((motorbike) => (
+                                            <TableRow key={customer.id}>
+                                                <TableCell>{customer.name}</TableCell>
+                                                <TableCell>{customer.phone_number}</TableCell>
+                                                <TableCell>{motorbike.make}</TableCell>
+                                                <TableCell>{motorbike.model}</TableCell>
+                                                <TableCell>{motorbike.color}</TableCell>
+                                                <TableCell>{motorbike.year}</TableCell>
+                                                <TableCell>{motorbike.plate_number}</TableCell>
+                                                <TableCell>{motorbike.engine_number}</TableCell>
+                                                <TableCell className="text-right">
+                                                    <CustomerEditDialog />
+                                                    <CustomerDeleteDialog />
+                                                </TableCell>
+                                            </TableRow>
+                                        ))}
+                                        {customer.motorbikes.length === 0 && (
+                                            <TableRow key={`no-bike-${customer.id}`}>
+                                                <TableCell>{customer.name}</TableCell>
+                                                <TableCell>{customer.phone_number}</TableCell>
+                                                <TableCell colSpan={5}>No motorbikes</TableCell>
+                                                <TableCell className="text-right">
+                                                    <CustomerEditDialog customerId={customer.id} />
+                                                    <CustomerDeleteDialog customerId={customer.id} />
+                                                </TableCell>
+                                            </TableRow>
+                                        )}
+                                    </>
+                                ))
+                            ) : (
+                                <TableRow>
+                                    <TableCell colSpan={8}>No customers found.</TableCell>
+                                </TableRow>
+                            )}
+                        </TableBody>
+                    </Table>
+                </CardContent>
+            </Card>
 
-                        </TableRow>
-                    ))}
-                </TableBody>
-                <TableFooter>
-                    <TableRow>
-                        <TableCell colSpan={3}>Total</TableCell>
-                        <TableCell className="text-right">$2,500.00</TableCell>
-                    </TableRow>
-                </TableFooter>
-            </Table>
         </div>
     </>
 }

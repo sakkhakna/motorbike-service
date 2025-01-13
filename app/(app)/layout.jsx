@@ -3,11 +3,6 @@
 import Sidenav from "@/components/sidenav";
 
 export default function AppLayout({ children }) {
-  // const { user } = useAuth({ middleware: 'auth' })
-  //
-  // if (!user) {
-  //     return <Loading />
-  // }
 
   return (
     <div className="flex flex-col h-screen md:flex-row md:overflow-hidden">

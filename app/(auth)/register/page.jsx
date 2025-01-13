@@ -12,11 +12,15 @@ import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import {register} from "@/app/(auth)/actions";
+import Image from "next/image";
 
 export default function Page() {
   return (
       <div className="flex items-center justify-center min-h-screen">
         <form action={register}>
+          <div className="flex justify-center p-4">
+            <Image src="/Logo.png" alt="Logo" width={100} height={100}/>
+          </div>
           <Card className="max-w-md mx-auto">
             <CardHeader>
               <CardTitle className="text-2xl">Register</CardTitle>

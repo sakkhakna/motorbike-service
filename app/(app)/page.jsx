@@ -24,8 +24,18 @@ import {
   DollarSign,
   Users,
 } from "lucide-react"
+import {redirect} from "next/navigation";
+import {getUser} from "@/app/(app)/profile/actions";
 
-export default function Home() {
+export default async function Home() {
+
+  const user = await getUser();
+
+  if (!user) {
+
+    redirect("/login")
+  }
+
   return <main className="flex flex-1 flex-col gap-4 md:gap-8 ">
     <h1 className="text-xl font-bold">Dashboard</h1>
     <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
