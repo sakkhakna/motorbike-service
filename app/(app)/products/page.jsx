@@ -12,8 +12,8 @@ import { Input } from "@/components/ui/input";
 import {Button, buttonVariants} from "@/components/ui/button";
 import {getProducts} from "@/app/(app)/products/actions";
 import ProductDeleteDialog from "@/components/ProductDeleteDialog";
-import ProductEditDialog from "@/components/ProductEditDialog";
 import Link from "next/link";
+import React from "react";
 
 export default async function page() {
   const products = await getProducts();
@@ -23,7 +23,12 @@ export default async function page() {
       <div className="flex justify-between w-full">
         <h1 className="text-xl font-bold">Products</h1>
         <div className="flex items-center w-full max-w-sm space-x-2">
-          <Link href={`/products/create`} className={buttonVariants({ variant: "outline" })}>+ Product</Link>
+          <Link
+              href={`/products/create`}
+              className={`${buttonVariants({ variant: "outline" })} bg-blue-600 text-white hoover:bg-blue-500`}
+          >
+            + Product
+          </Link>
           <Input type="text" placeholder="Search..." />
           <Button>Search</Button>
         </div>
@@ -87,9 +92,8 @@ export default async function page() {
                       </Badge>
                     </TableCell>
                     <TableCell>{product.quantity}</TableCell>
-                    <TableCell className="">
-                      <ProductEditDialog product={product}
-                      />
+                    <TableCell>
+                      <Link href={`/products/edit/${product.id}`} className={buttonVariants({ variant: "outline" })}>Edit</Link>
                       <ProductDeleteDialog />
                     </TableCell>
                   </TableRow>
