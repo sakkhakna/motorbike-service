@@ -7,10 +7,10 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import {Card, CardContent, CardHeader} from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import {Button, buttonVariants} from "@/components/ui/button";
-import {getProducts} from "@/app/(app)/products/actions";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { getProducts } from "@/app/(app)/products/actions";
 import ProductDeleteDialog from "@/components/ProductDeleteDialog";
 import Link from "next/link";
 import React from "react";
@@ -24,8 +24,10 @@ export default async function page() {
         <h1 className="text-xl font-bold">Products</h1>
         <div className="flex items-center w-full max-w-sm space-x-2">
           <Link
-              href={`/products/create`}
-              className={`${buttonVariants({ variant: "outline" })} bg-blue-600 text-white hoover:bg-blue-500`}
+            href={`/products/create`}
+            className={`${buttonVariants({
+              variant: "outline",
+            })} bg-blue-600 text-white hoover:bg-blue-500`}
           >
             + Product
           </Link>
@@ -56,57 +58,60 @@ export default async function page() {
       {/*    </Table>*/}
       {/*  </CardHeader>*/}
       {/*  <CardContent>*/}
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead></TableHead>
-                <TableHead className="font-bold text-black">Product</TableHead>
-                <TableHead className="font-bold text-black">From</TableHead>
-                <TableHead className="font-bold text-black">Price ฿</TableHead>
-                <TableHead className="font-bold text-black">Price ₫</TableHead>
-                <TableHead className="font-bold text-black">Price $</TableHead>
-                <TableHead className="font-bold text-black">Profit</TableHead>
-                <TableHead className="font-bold text-black">
-                  Sale Price
-                </TableHead>
-                <TableHead className="font-bold text-black">Status</TableHead>
-                <TableHead className="font-bold text-black">Quantity</TableHead>
-                <TableHead className="font-bold text-black ">Action</TableHead>
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead></TableHead>
+            <TableHead className="font-bold text-black">Product</TableHead>
+            <TableHead className="font-bold text-black">From</TableHead>
+            <TableHead className="font-bold text-black">Price ฿</TableHead>
+            <TableHead className="font-bold text-black">Price ₫</TableHead>
+            <TableHead className="font-bold text-black">Price $</TableHead>
+            <TableHead className="font-bold text-black">Profit</TableHead>
+            <TableHead className="font-bold text-black">Sale Price</TableHead>
+            <TableHead className="font-bold text-black">Status</TableHead>
+            <TableHead className="font-bold text-black">Quantity</TableHead>
+            <TableHead className="font-bold text-black ">Action</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {products && products.length > 0 ? (
+            products.map((product) => (
+              <TableRow key={product.id}>
+                <TableCell></TableCell>
+                <TableCell>{product.product}</TableCell>
+                <TableCell>{product.from}</TableCell>
+                <TableCell>{product.price_baht} Baht</TableCell>
+                <TableCell>{product.price_dong} Dong</TableCell>
+                <TableCell>{product.price_usd} $</TableCell>
+                <TableCell>{product.profit} $</TableCell>
+                <TableCell>{product.sale_price} $</TableCell>
+                <TableCell>
+                  <Badge className="text-xs" variant="outline">
+                    {product.status ? "Active" : "Inactive"}
+                  </Badge>
+                </TableCell>
+                <TableCell>{product.quantity}</TableCell>
+                <TableCell>
+                  <Link
+                    href={`/products/${product.id}/edit`}
+                    className={buttonVariants({ variant: "outline" })}
+                  >
+                    Edit
+                  </Link>
+                  <ProductDeleteDialog />
+                </TableCell>
               </TableRow>
-            </TableHeader>
-            <TableBody>
-              {products && products.length > 0 ? (
-                products.map((product) => (
-                  <TableRow key={product.id}>
-                    <TableCell></TableCell>
-                    <TableCell>{product.product}</TableCell>
-                    <TableCell>{product.from}</TableCell>
-                    <TableCell>{product.price_baht} Baht</TableCell>
-                    <TableCell>{product.price_dong} Dong</TableCell>
-                    <TableCell>{product.price_usd} $</TableCell>
-                    <TableCell>{product.profit} $</TableCell>
-                    <TableCell>{product.sale_price} $</TableCell>
-                    <TableCell>
-                      <Badge className="text-xs" variant="outline">
-                        {product.status ? "Active" : "Inactive"}
-                      </Badge>
-                    </TableCell>
-                    <TableCell>{product.quantity}</TableCell>
-                    <TableCell>
-                      <Link href={`/products/edit/${product.id}`} className={buttonVariants({ variant: "outline" })}>Edit</Link>
-                      <ProductDeleteDialog />
-                    </TableCell>
-                  </TableRow>
-                ))
-              ) : (
-                <TableRow>
-                  <TableCell colSpan="9" className="text-center">
-                    No products available
-                  </TableCell>
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
+            ))
+          ) : (
+            <TableRow>
+              <TableCell colSpan="9" className="text-center">
+                No products available
+              </TableCell>
+            </TableRow>
+          )}
+        </TableBody>
+      </Table>
       {/*  </CardContent>*/}
       {/*</Card>*/}
     </>

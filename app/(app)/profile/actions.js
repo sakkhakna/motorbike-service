@@ -10,6 +10,7 @@ export const getUser = async () => {
     const res = await axios.get("/api/user", {
       headers: {
         Authorization: `Bearer ${token}`,
+        Accept: "application/json",
       },
     });
     return res.data.data;
