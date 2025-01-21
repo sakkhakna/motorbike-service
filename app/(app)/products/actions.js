@@ -4,6 +4,7 @@ import axios from "@/lib/axios";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import { z } from "zod";
+import { revalidatePath } from "next/cache";
 
 const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
@@ -158,3 +159,32 @@ export async function updateProduct(prevData, formData) {
 
   redirect("/products");
 }
+
+export const deleteProduct = async (prevData, formData) => {
+  const token = (await cookies()).get("user_token")?.value;
+  if (!token) {
+    throw new Error("No Token!");
+  }
+
+  try {
+    const id = formData.get("id");
+    const res = await fetch(`${BACKEND_URL}/api/products/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const data = await res.json();
+    if (!res.ok) {
+      throw new Error(`Error ${res.status}: ${data.message}`);
+    }
+  } catch (error) {
+    console.log(error);
+    throw new Error(error.message);
+  }
+
+  revalidatePath("/products");
+};

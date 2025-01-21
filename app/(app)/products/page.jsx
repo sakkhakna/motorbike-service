@@ -99,7 +99,7 @@ export default async function page() {
                   >
                     Edit
                   </Link>
-                  <ProductDeleteDialog />
+                  <ProductDeleteDialog productId={product.id} />
                 </TableCell>
               </TableRow>
             ))
