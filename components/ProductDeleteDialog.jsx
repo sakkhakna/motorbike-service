@@ -4,6 +4,7 @@ import { useActionState } from "react";
 import { deleteProduct } from "@/app/(app)/products/actions";
 
 import { Loader2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogClose,
@@ -14,6 +15,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+
 import { Button } from "@/components/ui/button";
 
 export default function ProductDeleteDialog({ productId }) {
