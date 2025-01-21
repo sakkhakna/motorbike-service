@@ -7,7 +7,6 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { getProducts } from "@/app/(app)/products/actions";
@@ -23,14 +22,9 @@ export default async function page() {
       <div className="flex justify-between w-full">
         <h1 className="text-xl font-bold">Products</h1>
         <div className="flex items-center w-full max-w-sm space-x-2">
-          <Link
-            href={`/products/create`}
-            className={`${buttonVariants({
-              variant: "outline",
-            })} bg-blue-600 text-white hoover:bg-blue-500`}
-          >
-            + Product
-          </Link>
+          <Button asChild className="bg-blue-600 text-white hover:bg-blue-500">
+            <Link href={`/products/create`}>+ Product</Link>
+          </Button>
           <Input type="text" placeholder="Search..." />
           <Button>Search</Button>
         </div>
@@ -92,13 +86,10 @@ export default async function page() {
                   </Badge>
                 </TableCell>
                 <TableCell>{product.quantity}</TableCell>
-                <TableCell>
-                  <Link
-                    href={`/products/${product.id}/edit`}
-                    className={buttonVariants({ variant: "outline" })}
-                  >
-                    Edit
-                  </Link>
+                <TableCell className="flex gap-2">
+                  <Button asChild className="bg-green-600 text-white hover:bg-green-500">
+                    <Link href={`/products/${product.id}/edit`}>Edit</Link>
+                  </Button>
                   <ProductDeleteDialog />
                 </TableCell>
               </TableRow>
