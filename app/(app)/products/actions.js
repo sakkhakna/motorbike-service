@@ -13,10 +13,10 @@ const ProductFormSchema = z.object({
   from: z.string().min(1, "Product From is required"),
   price_baht: z.coerce
     .number()
-    .positive("Price in Baht must be a positive number"),
+    .nonnegative("Price in Baht must be a non-negative number"),
   price_dong: z.coerce
     .number()
-    .positive("Price in Dong must be a positive number"),
+    .nonnegative("Price in Dong must be a non-negative number"),
   price_usd: z.coerce
     .number()
     .positive("Price in USD must be a positive number"),
@@ -102,12 +102,14 @@ export async function createProduct(formData) {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log("API Response:", res.data);
-    return res.data.data;
+    // console.log("API Response:", res.data);
+    // return res.data.data;
   } catch (error) {
     console.error("Validation or submission error:", error);
     return null;
   }
+
+    redirect("/products");
 }
 
 export async function updateProduct(prevData, formData) {

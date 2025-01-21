@@ -16,12 +16,6 @@ import {
 export default function Page() {
     return (
         <>
-            {/*<div className="flex gap-2">*/}
-            {/*    <Link href="/products">*/}
-            {/*        <ChevronLeft/>*/}
-            {/*    </Link>*/}
-            {/*    <h1 className="text-xl font-bold mb-4">Create Product</h1>*/}
-            {/*</div>*/}
             <Breadcrumb>
                 <BreadcrumbList className="text-lg">
                     <BreadcrumbItem>

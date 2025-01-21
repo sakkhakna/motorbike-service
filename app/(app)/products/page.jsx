@@ -23,45 +23,17 @@ export default async function page() {
       <div className="flex justify-between w-full">
         <h1 className="text-xl font-bold">Products</h1>
         <div className="flex items-center w-full max-w-sm space-x-2">
-          <Link
-            href={`/products/create`}
-            className={`${buttonVariants({
-              variant: "outline",
-            })} bg-blue-600 text-white hoover:bg-blue-500`}
-          >
-            + Product
-          </Link>
+
+          <Button asChild className="bg-blue-600 text-white hover:bg-blue-500">
+            <Link href={`/products/create`}>+ Product</Link>
+          </Button>
           <Input type="text" placeholder="Search..." />
           <Button>Search</Button>
         </div>
       </div>
-      {/*<Card>*/}
-      {/*  <CardHeader>*/}
-      {/*    <Table>*/}
-      {/*      <TableHeader>*/}
-      {/*        <TableRow>*/}
-      {/*          <TableHead></TableHead>*/}
-      {/*          <TableHead className="font-bold text-black">Product</TableHead>*/}
-      {/*          <TableHead className="font-bold text-black">From</TableHead>*/}
-      {/*          <TableHead className="font-bold text-black">Price ฿</TableHead>*/}
-      {/*          <TableHead className="font-bold text-black">Price ₫</TableHead>*/}
-      {/*          <TableHead className="font-bold text-black">Price $</TableHead>*/}
-      {/*          <TableHead className="font-bold text-black">Profit</TableHead>*/}
-      {/*          <TableHead className="font-bold text-black">*/}
-      {/*            Sale Price*/}
-      {/*          </TableHead>*/}
-      {/*          <TableHead className="font-bold text-black">Status</TableHead>*/}
-      {/*          <TableHead className="font-bold text-black">Quantity</TableHead>*/}
-      {/*          <TableHead className="font-bold text-black ">Action</TableHead>*/}
-      {/*        </TableRow>*/}
-      {/*      </TableHeader>*/}
-      {/*    </Table>*/}
-      {/*  </CardHeader>*/}
-      {/*  <CardContent>*/}
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead></TableHead>
             <TableHead className="font-bold text-black">Product</TableHead>
             <TableHead className="font-bold text-black">From</TableHead>
             <TableHead className="font-bold text-black">Price ฿</TableHead>
@@ -78,7 +50,6 @@ export default async function page() {
           {products && products.length > 0 ? (
             products.map((product) => (
               <TableRow key={product.id}>
-                <TableCell></TableCell>
                 <TableCell>{product.product}</TableCell>
                 <TableCell>{product.from}</TableCell>
                 <TableCell>{product.price_baht} Baht</TableCell>
@@ -92,13 +63,10 @@ export default async function page() {
                   </Badge>
                 </TableCell>
                 <TableCell>{product.quantity}</TableCell>
-                <TableCell>
-                  <Link
-                    href={`/products/${product.id}/edit`}
-                    className={buttonVariants({ variant: "outline" })}
-                  >
-                    Edit
-                  </Link>
+                <TableCell className="flex gap-2">
+                  <Button asChild className="bg-green-600 text-white hover:bg-green-500">
+                    <Link href={`/products/${product.id}/edit`}>Edit</Link>
+                  </Button>
                   <ProductDeleteDialog productId={product.id} />
                 </TableCell>
               </TableRow>
@@ -106,7 +74,7 @@ export default async function page() {
           ) : (
             <TableRow>
               <TableCell colSpan="9" className="text-center">
-                No products available
+                No product available
               </TableCell>
             </TableRow>
           )}

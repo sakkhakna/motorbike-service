@@ -6,6 +6,7 @@ import {
     Newspaper,
     Package,
     Wrench,
+    UserCog
 } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from "next/navigation";
@@ -31,7 +32,11 @@ const links = [
         name: 'Services',
         href: '/services',
         icon: Wrench
-    },
+    }, {
+        name: 'Mechanics',
+        href: '/mechanics',
+        icon: UserCog
+    }
 ];
 
 export default function NavLinks() {
